@@ -1,5 +1,6 @@
 <script setup>
 import torHeader from '@/assets/vids/tor_header_audio.mp4'
+import heroPoster from '@/assets/pics/hero_poster.jpg'
 </script>
 
 <template>
@@ -20,7 +21,7 @@ import torHeader from '@/assets/vids/tor_header_audio.mp4'
               controls
               preload="metadata"
               playsinline
-              poster="/pics/hero_poster.jpg"
+              :poster="heroPoster"
             >
               <source :src="torHeader" type="video/mp4" >
             </video>
