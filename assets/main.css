@@ -1,0 +1,6 @@
+/* assets/css/main.css */
+@import "tailwindcss";
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
