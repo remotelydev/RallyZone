@@ -1,3 +1,9 @@
+<script setup>
+import heroMobile from '@/assets/vids/hero_mobile.mp4'
+import heroDesktop from '@/assets/vids/hero_desktop.mp4'
+import heroPoster from '@/assets/pics/hero_poster.jpg'
+</script>
+
 <template>
 <section class="relative h-[90vh] min-h-[560px] w-full overflow-hidden">
   <!-- Background video -->
@@ -7,12 +13,12 @@
     muted
     loop
     playsinline
-    poster="/pics/hero_poster.jpg"
+    :poster="heroPoster"
   >
     <!-- Mobile first -->
-    <source src="/vids/hero_mobile.mp4" type="video/mp4" media="(max-width: 768px)" >
+    <source :src="heroMobile" type="video/mp4" media="(max-width: 768px)" >
     <!-- Desktop -->
-    <source src="/vids/hero_desktop.mp4" type="video/mp4" media="(min-width: 769px)" >
+    <source :src="heroDesktop" type="video/mp4" media="(min-width: 769px)" >
     <!-- Fallback -->
     Your browser does not support the video tag.
   </video>

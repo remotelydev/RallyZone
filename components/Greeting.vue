@@ -1,3 +1,7 @@
+<script setup>
+import torHeader from '@/assets/vids/tor_header_audio.mp4'
+</script>
+
 <template>
     <section id="welcome" class="mx-auto max-w-7xl px-6 py-16">
       <div class="grid items-center gap-10 md:grid-cols-2">
@@ -18,7 +22,7 @@
               playsinline
               poster="/pics/hero_poster.jpg"
             >
-              <source src="/vids/tor_header_audio.mp4" type="video/mp4" >
+              <source :src="torHeader" type="video/mp4" >
             </video>
           </div>
         </div>
