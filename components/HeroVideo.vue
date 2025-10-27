@@ -39,9 +39,9 @@ import heroPoster from '@/assets/pics/hero_poster.jpg'
         <a href="tel:+48600607127" class="rounded-2xl bg-white/90 px-5 py-3 text-black">
           Umów się teraz
         </a>
-        <a href="#" class="rounded-2xl border border-white/60 px-5 py-3">
+        <!-- <a href="#" class="rounded-2xl border border-white/60 px-5 py-3">
           Zobacz flotę
-        </a>
+        </a> -->
       </div>
     </div>
   </div>

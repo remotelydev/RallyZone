@@ -1,44 +1,67 @@
 <template>
-<header class="absolute top-0 left-0 w-full z-20">
-  <nav class="flex items-center justify-between px-6 py-4 md:py-6">
-    <!-- Logo on left -->
-    <a href="#" class="flex-shrink-0">
-      <h1 class="logo">RALLYZONE</h1>
-    </a>
+  <header
+    :class="[
+      'fixed top-0 left-0 w-full z-50 transition-colors duration-300',
+      (scrolled || isOpen) ? 'bg-white shadow-sm' : 'bg-transparent'
+    ]"
+  >
+    <nav class="relative z-50 flex items-center justify-between px-6 py-4 md:py-6">
+      <a href="#" class="flex-shrink-0">
+        <h1 class="logo">RALLYZONE</h1>
+      </a>
 
-    <!-- Hamburger button (mobile only) -->
-    <button
-      class="w-8 h-8 flex items-center justify-center md:hidden"
-      aria-label="Menu"
-    >
-      <!-- Simple hamburger icon -->
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 text-white"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
+      <ul
+        class="flex md:content-baseline gap-8 text-lg transition-colors duration-300"
+        :class="(scrolled || isOpen) ? 'text-black' : 'text-white'"
       >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
+        <li class="hidden sm:list-item py-2"><a href="#gallery" class="py-4 hover:opacity-70">Galeria</a></li>
+        <li class="hidden sm:list-item py-2"><a href="#contact" class="hover:opacity-70">Kontakt</a></li>
+        <li class="list-item" :class="scrolled ? 'py-0' : 'py-2'"><button type="button" :class="[
+          scrolled ? 'px-4 py-2 bg-black text-white rounded' : ''
+        ]"><a href="tel:123123123">Zadzwoń</a></button></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Desktop links -->
-    <ul class="hidden md:flex gap-8 text-white text-lg">
-      <!-- <li><a href="#fleet" class="hover:text-gray-300">Fleet</a></li> -->
-      <li><a href="#gallery" class="hover:text-gray-300">Galeria</a></li>
-      <li><a href="#contact" class="hover:text-gray-300">Kontakt</a></li>
-    </ul>
-  </nav>
-</header>
-
-
+  <!-- Sentinel: visible only at very top -->
+  <div ref="topSentinel" class="h-px w-px"></div>
 </template>
+
+<script setup>
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+
+const isOpen = ref(false)
+const scrolled = ref(false)
+const topSentinel = ref(null)
+let io
+
+const toggle = () => { isOpen.value = !isOpen.value }
+const close  = () => { isOpen.value = false }
+
+watch(isOpen, v => { document.body.style.overflow = v ? 'hidden' : '' })
+
+const onHash = () => close()
+
+onMounted(() => {
+  io = new IntersectionObserver(
+    ([entry]) => { scrolled.value = !entry.isIntersecting },
+    { root: null, threshold: 1 }
+  )
+  if (topSentinel.value) io.observe(topSentinel.value)
+
+  window.addEventListener('hashchange', onHash)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('hashchange', onHash)
+  if (io && topSentinel.value) io.unobserve(topSentinel.value)
+  document.body.style.overflow = ''
+})
+</script>
 
 <style scoped>
 .logo {
-    paint-order: stroke fill;
+  paint-order: stroke fill;
   font-family: 'Impact', 'Arial Black', sans-serif;
   font-size: 3rem;
   font-weight: 900;
@@ -46,18 +69,9 @@
   line-height: 1.16;
   color: white;
   background: #ec1c24;
-
-
-  /* True outline (doesn't overlap inside) */
   -webkit-text-stroke: 10px black;
   -webkit-text-fill-color: white;
-
-
-  /* Skew */
   transform: skewX(-16.1deg);
-
-  /* Tighten letters so they touch */
   letter-spacing: -0.01ch;
 }
 </style>
-  
