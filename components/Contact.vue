@@ -24,16 +24,16 @@
         <p>
           <span class="font-semibold text-gray-100">Email: </span>
           <a
-            href="mailto:hello@rallyzone.pl"
+            href="mailto:rallyzone.pl@gmail.pl"
             class="text-gray-300 hover:text-gray-100 transition"
-          >hello@rallyzone.pl</a>
+          >rallyzone.pl@gmail.pl</a>
         </p>
         <p>
           <span class="font-semibold text-gray-100">Phone: </span>
           <a
-            href="tel:+48600607127"
+            href="tel:+48501101994"
             class="text-gray-300 hover:text-gray-100 transition"
-          >+48 600 607 127</a>
+          >+48 501 101 994</a>
         </p>
       </div>
     </div>

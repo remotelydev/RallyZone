@@ -36,7 +36,7 @@ import heroPoster from '@/assets/pics/hero_poster.jpg'
         prawdziwe rajdowe doświadczenie na wyciągnięcie ręki
       </p>
       <div class="mt-6 flex gap-3">
-        <a href="tel:+48600607127" class="rounded-2xl bg-white/90 px-5 py-3 text-black">
+        <a href="tel:+48501101994" class="rounded-2xl bg-white/90 px-5 py-3 text-black">
           Umów się teraz
         </a>
         <!-- <a href="#" class="rounded-2xl border border-white/60 px-5 py-3">

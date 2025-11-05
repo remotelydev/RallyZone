@@ -18,7 +18,7 @@
         <li class="hidden sm:list-item py-2"><a href="#contact" class="hover:opacity-70">Kontakt</a></li>
         <li class="list-item" :class="scrolled ? 'py-0' : 'py-2'"><button type="button" :class="[
           scrolled ? 'px-4 py-2 bg-black text-white rounded' : ''
-        ]"><a href="tel:123123123">Zadzwoń</a></button></li>
+        ]"><a href="tel:48501101994">Zadzwoń</a></button></li>
       </ul>
     </nav>
   </header>
