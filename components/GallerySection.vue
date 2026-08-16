@@ -18,6 +18,7 @@ const currentSrc = computed(() => (index.value != null ? gallery[index.value] : 
 // focus management
 const thumbRefs = ref<HTMLButtonElement[]>([])
 const closeBtn = ref<HTMLButtonElement | null>(null)
+const dialogRef = ref<HTMLElement | null>(null)
 let lastClicked = -1
 
 function open(i: number) {
@@ -29,7 +30,6 @@ function open(i: number) {
 }
 
 function close() {
-  console.log('close')
   isOpen.value = false
   const toRestore = lastClicked
   index.value = null
@@ -51,13 +51,27 @@ function prev() {
 
 function onKey(e: KeyboardEvent) {
   if (!isOpen.value) return
-  if (e.key === 'Escape') { e.preventDefault(); close() }
+  if (e.key === 'Tab') {
+    const focusable = dialogRef.value?.querySelectorAll<HTMLButtonElement>('button:not([disabled])')
+    if (!focusable?.length) return
+
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault()
+      last.focus()
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault()
+      first.focus()
+    }
+  } else if (e.key === 'Escape') { e.preventDefault(); close() }
   else if (e.key === 'ArrowRight') { e.preventDefault(); next() }
   else if (e.key === 'ArrowLeft') { e.preventDefault(); prev() }
 }
 
 function lockScroll(lock: boolean) {
-  if (process.client) {
+  if (import.meta.client) {
     const el = document.documentElement
     if (lock) el.style.overflow = 'hidden'
     else el.style.overflow = ''
@@ -93,7 +107,11 @@ const gridStyle = computed(() => ({
 </script>
 
 <template>
-  <section id="gallery" class="mx-auto max-w-7xl px-6 py-16">
+  <section id="gallery" class="mx-auto max-w-7xl px-6 py-16" aria-labelledby="gallery-title">
+    <div class="mb-8 max-w-2xl">
+      <h2 id="gallery-title" class="text-3xl font-bold">Galeria RallyZone</h2>
+      <p class="mt-3 text-lg text-slate-700">Zobacz rajdową atmosferę, nasze samochody i przygotowania do startów.</p>
+    </div>
     <!-- <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
       <button
         v-for="(src, i) in gallery"
@@ -101,13 +119,13 @@ const gridStyle = computed(() => ({
         type="button"
         class="group block relative rounded-xl overflow-hidden focus:outline-none"
         @click="open(i)"
-        :aria-label="`Open image ${i+1} of ${gallery.length}`"
+        :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
         :ref="el => (thumbRefs[i] = el as HTMLButtonElement)"
       >
         <div class="pt-[66%]" />
         <img
           :src="src"
-          :alt="`Gallery image ${i+1}`"
+          :alt="`RallyZone – zdjęcie z galerii rajdowej ${i + 1}`"
           class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           loading="lazy"
           decoding="async"
@@ -122,15 +140,15 @@ const gridStyle = computed(() => ({
       <button
         v-for="(src, i) in gallery"
         :key="src"
+        :ref="el => (thumbRefs[i] = el as HTMLButtonElement)"
         type="button"
         class="group relative rounded-xl overflow-hidden focus:outline-none w-full h-full snap-start"
+        :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
         @click="open(i)"
-        :aria-label="`Open image ${i+1} of ${gallery.length}`"
-        :ref="el => (thumbRefs[i] = el as HTMLButtonElement)"
       >
         <img
           :src="src"
-          :alt="`Gallery image ${i+1}`"
+          :alt="`RallyZone – zdjęcie z galerii rajdowej ${i + 1}`"
           class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           loading="lazy" decoding="async"
         >
@@ -149,10 +167,11 @@ const gridStyle = computed(() => ({
       >
         <div
           v-if="isOpen"
+          ref="dialogRef"
           class="fixed inset-0 z-50"
           role="dialog"
           aria-modal="true"
-          aria-label="Image viewer"
+          aria-label="Podgląd zdjęcia"
           @click.self="close"
         >
           <!-- backdrop -->
@@ -164,8 +183,8 @@ const gridStyle = computed(() => ({
             <button
               type="button"
               class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 rounded-full p-2 md:p-3 bg-black/50 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70"
+              aria-label="Poprzednie zdjęcie"
               @click.stop="prev"
-              aria-label="Previous image"
             >
               ‹
             </button>
@@ -183,8 +202,8 @@ const gridStyle = computed(() => ({
             <button
               type="button"
               class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 rounded-full p-2 md:p-3 bg-black/50 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70"
+              aria-label="Następne zdjęcie"
               @click.stop="next"
-              aria-label="Next image"
             >
               ›
             </button>
@@ -194,8 +213,8 @@ const gridStyle = computed(() => ({
               ref="closeBtn"
               type="button"
               class="absolute top-2 right-2 md:top-4 md:right-4 rounded-full p-2 md:p-3 bg-black/50 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70"
+              aria-label="Zamknij podgląd (Esc)"
               @click="close"
-              aria-label="Close (Esc)"
             >
               ✕
             </button>

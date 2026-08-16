@@ -1,6 +1,22 @@
 /* assets/css/main.css */
 @import "tailwindcss";
 
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+:focus-visible {
+  outline: 3px solid #ec1c24;
+  outline-offset: 3px;
+}
+
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
