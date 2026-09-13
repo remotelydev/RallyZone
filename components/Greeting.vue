@@ -29,6 +29,10 @@ onMounted(() => {
           <p class="mt-4 text-lg">
             Wejdź w świat motorsportu z zespołem, który zapewnia rajdówkę oraz kompletne zaplecze gotowe do startu. Ty skupiasz się na jeździe, my zajmujemy się przygotowaniem auta i obsługą.
           </p>
+          <h3 class="mt-8 text-xl font-semibold">Asfalt czy szuter</h3>
+          <p class="mt-3 text-lg">
+            Nie potrzebujesz fabrycznego kontraktu, by poczuć, czym jest prawdziwy rajd. Z nami możesz wsiąść za kierownicę Peugeota 208 Rally2 — w pełnej specyfikacji, z serwisem, zespołem i całym zapleczem gotowym do akcji. Przywozimy auto, dbamy o jego stan, a Ty możesz skupić się na tym, co najważniejsze — na jeździe. Asfalt czy szuter? Ty wybierasz.
+          </p>
         </div>
 
         <div class="relative rounded-2xl overflow-hidden shadow-2xl">
@@ -47,13 +51,6 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <!-- <div>
-        <p class="rounded-xl bg-slate-100 p-6">
-            Nie potrzebujesz fabrycznego kontraktu, by poczuć, czym jest prawdziwy rajd. Z nami możesz wsiąść za kierownicę Peugeota 208 Rally2 - w pełnej specyfikacji, z serwisem, zespołem i całym zapleczem gotowym do akcji.
-Przywozimy auto, dbamy o jego stan, a Ty możesz skupić się na tym, co najważniejsze - na jeździe. Asfalt czy szuter? Ty wybierasz.
-Dla najmłodszych entuzjastów mamy Opla Corsę - małe auto, wielkie emocje. Idealne, by zacząć przygodę z rajdami od pierwszego zakrętu.
-        </p>
-      </div> -->
 </section>
 
 </template>

@@ -29,9 +29,12 @@ export function useSiteSeo() {
       type: 'application/ld+json',
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
+        '@type': ['LocalBusiness', 'AutoRental'],
+        '@id': `${siteUrl}#business`,
         name: 'RallyZone',
         url: siteUrl,
+        image: ogImage,
+        logo: `${siteUrl}apple-touch-icon.png`,
         email: 'rallyzone.pl@gmail.com',
         telephone: '+48 501 101 994',
         address: {
@@ -41,7 +44,33 @@ export function useSiteSeo() {
           addressLocality: 'Turek',
           addressCountry: 'PL',
         },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: 52.022987,
+          longitude: 18.509945,
+        },
+        areaServed: 'PL',
         description: defaultDescription,
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'Wynajem samochodów rajdowych',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Car',
+                name: 'Peugeot 208 Rally2',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Car',
+                name: 'Opel Corsa',
+              },
+            },
+          ],
+        },
       }),
     }],
   })
