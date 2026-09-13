@@ -2,3 +2,25 @@
 # Do not add `/* /404.html 404` — that splat shadowed every path, including
 # `/`, when the publish directory was missing index.html. Keep public/404.html
 # in the generate output; Netlify uses it for unknown URLs automatically.
+
+# Canonical host: https://rallyzone.pl/ (apex).
+#
+# Netlify Domain management (https://app.netlify.com/projects/rallyzone/configuration/domains):
+#   Primary domain: rallyzone.pl
+#   Domain alias:   www.rallyzone.pl  (must stay assigned to this site)
+# Keep HTTPS enabled. Do not make www the primary domain.
+#
+# force = true so published files (index.html) do not shadow the host change.
+# Query strings are forwarded. :splat keeps the path.
+
+[[redirects]]
+  from = "http://www.rallyzone.pl/*"
+  to = "https://rallyzone.pl/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.rallyzone.pl/*"
+  to = "https://rallyzone.pl/:splat"
+  status = 301
+  force = true
