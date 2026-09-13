@@ -20,6 +20,9 @@ export function useSiteSeo() {
   })
 
   useHead({
+    meta: [
+      { name: 'google-site-verification', content: 'btT-IQVEckAnx0SuvyNFFXpwLRxANNj1OVzmSFlZkwA' },
+    ],
     link: [
       { rel: 'canonical', href: siteUrl },
       { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
