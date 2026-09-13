@@ -1,10 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { copyFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { copyFileSync, existsSync, mkdirSync } from 'node:fs'
+import { join } from 'node:path'
 import tailwindcss from "@tailwindcss/vite";
 
-const rootDir = dirname(fileURLToPath(import.meta.url))
+function writeStatic404(publicDir?: string) {
+  const src = join(process.cwd(), 'public/404.html')
+  const destDir = publicDir || join(process.cwd(), '.output/public')
+  if (!existsSync(src)) return
+  mkdirSync(destDir, { recursive: true })
+  copyFileSync(src, join(destDir, '404.html'))
+}
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -14,12 +19,14 @@ export default defineNuxtConfig({
       failOnError: false,
     },
     hooks: {
-      compiled(nitro) {
-        copyFileSync(
-          join(rootDir, 'public/404.html'),
-          join(nitro.options.output.publicDir, '404.html'),
-        )
+      'prerender:done'() {
+        writeStatic404()
       },
+    },
+  },
+  hooks: {
+    close() {
+      writeStatic404()
     },
   },
   vite: {
