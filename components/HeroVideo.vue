@@ -1,31 +1,56 @@
 <script setup>
-import heroMobile from '@/assets/vids/hero_mobile.mp4'
-import heroDesktop from '@/assets/vids/hero_desktop.mp4'
-import heroMobileWebm from '@/assets/vids/hero_mobile.webm'
-import heroDesktopWebm from '@/assets/vids/hero_desktop.webm'
-import heroPoster from '@/assets/pics/hero_poster.jpg'
+const poster = '/pics/hero-poster.jpg'
+const desktopWebm = '/vids/hero_desktop.webm'
+const desktopMp4 = '/vids/hero_desktop.mp4'
+
+const playDesktopVideo = ref(false)
+let mediaQuery
+
+function update() {
+  playDesktopVideo.value = mediaQuery?.matches ?? false
+}
+
+useHead({
+  link: [
+    { rel: 'preload', as: 'image', href: poster },
+  ],
+})
+
+onMounted(() => {
+  mediaQuery = window.matchMedia('(min-width: 769px)')
+  update()
+  mediaQuery.addEventListener('change', update)
+})
+
+onBeforeUnmount(() => {
+  mediaQuery?.removeEventListener('change', update)
+})
 </script>
 
 <template>
 <section class="relative h-[90vh] min-h-[560px] w-full overflow-hidden" aria-labelledby="hero-title">
-  <!-- Background video -->
+  <img
+    :src="poster"
+    alt="Peugeot 208 Rally2 RallyZone"
+    width="1600"
+    height="1066"
+    fetchpriority="high"
+    decoding="async"
+    class="absolute inset-0 h-full w-full object-cover"
+  >
+
   <video
+    v-if="playDesktopVideo"
     class="absolute inset-0 h-full w-full object-cover"
     autoplay
     muted
     loop
     playsinline
-    :poster="heroPoster"
-    preload="metadata"
+    :poster="poster"
+    preload="none"
   >
-    <!-- WebM provides smaller files on supported browsers. -->
-    <source :src="heroMobileWebm" type="video/webm" media="(max-width: 768px)" >
-    <source :src="heroDesktopWebm" type="video/webm" media="(min-width: 769px)" >
-    <!-- MP4 fallback -->
-    <source :src="heroMobile" type="video/mp4" media="(max-width: 768px)" >
-    <source :src="heroDesktop" type="video/mp4" media="(min-width: 769px)" >
-    <!-- Fallback -->
-    Your browser does not support the video tag.
+    <source :src="desktopWebm" type="video/webm">
+    <source :src="desktopMp4" type="video/mp4">
   </video>
 
   <!-- Overlay for readability -->
