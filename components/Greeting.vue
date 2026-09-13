@@ -1,11 +1,28 @@
 <script setup>
-import torHeader from '@/assets/vids/tor_header_audio.mp4'
-import torHeaderWebm from '@/assets/vids/tor_header_audio.webm'
-import heroPoster from '@/assets/pics/hero_poster.jpg'
+const poster = '/pics/hero-poster.jpg'
+const webm = '/vids/tor_header_audio.webm'
+const mp4 = '/vids/tor_header_audio.mp4'
+
+const sectionRef = ref(null)
+const loadVideo = ref(false)
+
+onMounted(() => {
+  const el = sectionRef.value
+  if (!el) return
+
+  const io = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return
+    loadVideo.value = true
+    io.disconnect()
+  }, { rootMargin: '200px' })
+
+  io.observe(el)
+  onBeforeUnmount(() => io.disconnect())
+})
 </script>
 
 <template>
-    <section id="welcome" class="mx-auto max-w-7xl px-6 py-16" aria-labelledby="welcome-title">
+    <section id="welcome" ref="sectionRef" class="mx-auto max-w-7xl px-6 py-16" aria-labelledby="welcome-title">
       <div class="grid items-center gap-10 md:grid-cols-2">
         <div class="p-6">
           <h2 id="welcome-title" class="text-3xl md:text-4xl font-bold">RallyZone – rajdy od pierwszego zakrętu</h2>
@@ -20,12 +37,12 @@ import heroPoster from '@/assets/pics/hero_poster.jpg'
             <video
               class="h-full w-full object-cover"
               controls
-              preload="metadata"
+              preload="none"
               playsinline
-              :poster="heroPoster"
+              :poster="poster"
             >
-              <source :src="torHeaderWebm" type="video/webm" >
-              <source :src="torHeader" type="video/mp4" >
+              <source v-if="loadVideo" :src="webm" type="video/webm" >
+              <source v-if="loadVideo" :src="mp4" type="video/mp4" >
             </video>
           </div>
         </div>
