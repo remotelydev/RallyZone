@@ -1,6 +1,6 @@
 export const siteUrl = 'https://rallyzone.pl/'
-export const defaultTitle = 'RallyZone – wynajem rajdowego Peugeota 208 Rally2'
-export const defaultDescription = 'RallyZone oferuje wynajem rajdowego Peugeota 208 Rally2 z pełnym zapleczem serwisowym. Startuj na asfalcie lub szutrze – skontaktuj się z nami.'
+export const defaultTitle = 'RallyZone – wynajem Peugeota 208 Rally2 i Opla Corsy'
+export const defaultDescription = 'Wynajem rajdówki z oponami, serwisem, transportem i ubezpieczeniem. Peugeot 208 Rally2 i Opel Corsa — zadzwoń po szczegóły.'
 export const ogImage = `${siteUrl}og-rallyzone-208.jpg`
 
 export function useSiteSeo() {

@@ -53,28 +53,22 @@ onBeforeUnmount(() => {
     <source :src="desktopMp4" type="video/mp4">
   </video>
 
-  <!-- Overlay for readability -->
-  <div class="absolute inset-0 bg-black/40"/>
+  <div class="absolute inset-0 bg-black/50"/>
 
-  <!-- Content -->
-  <div class="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
+  <div class="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pt-20">
     <div class="max-w-2xl text-white">
       <h1 id="hero-title" class="text-4xl font-bold md:text-6xl">
-        Wynajem Peugeota 208 Rally2
+        Wynajem rajdówki z pełnym zapleczem
       </h1>
       <p class="mt-4 text-lg md:text-xl opacity-90">
-        Prawdziwe rajdowe doświadczenie z profesjonalnym zapleczem RallyZone.
+        Peugeot 208 Rally2 i Opel Corsa. Asfalt albo szuter. RallyZone, Turek.
       </p>
-      <div class="mt-6 flex gap-3">
-        <a href="tel:+48501101994" class="rounded-2xl bg-white/90 px-5 py-3 text-black">
-          Zapytaj o termin
-        </a>
-        <!-- <a href="#" class="rounded-2xl border border-white/60 px-5 py-3">
-          Zobacz flotę
-        </a> -->
+      <div class="mt-8 flex gap-3">
+        <CallLink class="rounded-2xl bg-[#ec1c24] px-6 py-3 text-lg font-semibold text-white hover:bg-[#c4161d]">
+          Zadzwoń
+        </CallLink>
       </div>
     </div>
   </div>
 </section>
-    
 </template>

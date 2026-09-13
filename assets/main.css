@@ -1,10 +1,20 @@
 /* assets/css/main.css */
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@media (max-width: 639px) {
+  body {
+    padding-bottom: 5.5rem;
+  }
 }
 
 html::-webkit-scrollbar,

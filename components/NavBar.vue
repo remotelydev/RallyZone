@@ -1,19 +1,17 @@
 <template>
-  <header
-    :class="[
-      'fixed top-0 left-0 w-full z-50 transition-colors duration-300',
-      (scrolled || isOpen) ? 'bg-white shadow-sm' : 'bg-transparent'
-    ]"
-  >
-    <nav class="relative z-50 flex items-center justify-between gap-3 px-4 py-3 sm:px-6 md:py-6" aria-label="Główna nawigacja">
+  <header class="fixed top-0 left-0 z-50 w-full bg-gray-950 shadow-sm">
+    <nav class="relative z-50 flex items-center justify-between gap-3 px-4 py-3 sm:px-6 md:py-4" aria-label="Główna nawigacja">
       <a href="/" class="flex-shrink-0">
         <span class="logo">RALLYZONE</span>
       </a>
 
-      <ul
-        class="hidden sm:flex md:content-baseline gap-8 text-lg transition-colors duration-300"
-        :class="(scrolled || isOpen) ? 'text-black' : 'text-white'"
-      >
+      <ul class="hidden items-center gap-2 text-lg text-white sm:flex md:gap-6">
+        <li>
+          <a href="/" class="menu-link hover:opacity-70">Home</a>
+        </li>
+        <li>
+          <a href="#offer" class="menu-link hover:opacity-70">Oferta</a>
+        </li>
         <li>
           <a href="#gallery" class="menu-link hover:opacity-70">Galeria</a>
         </li>
@@ -21,20 +19,16 @@
           <a href="#contact" class="menu-link hover:opacity-70">Kontakt</a>
         </li>
         <li>
-          <a
-            href="tel:+48501101994"
-            class="menu-link"
-            :class="scrolled ? 'bg-black text-white' : ''"
-          >Zadzwoń</a>
+          <CallLink class="menu-link bg-[#ec1c24] text-white hover:bg-[#c4161d]">
+            Zadzwoń
+          </CallLink>
         </li>
       </ul>
 
-      <div class="flex items-center gap-1 sm:hidden" :class="(scrolled || isOpen) ? 'text-black' : 'text-white'">
-        <a
-          href="tel:+48501101994"
-          class="menu-link text-base"
-          :class="(scrolled || isOpen) ? 'bg-black text-white' : ''"
-        >Zadzwoń</a>
+      <div class="flex items-center gap-1 text-white sm:hidden">
+        <CallLink class="menu-link bg-[#ec1c24] text-base text-white hover:bg-[#c4161d]">
+          Zadzwoń
+        </CallLink>
         <button
           type="button"
           class="menu-link"
@@ -55,9 +49,15 @@
     <div
       v-if="isOpen"
       id="mobile-menu"
-      class="sm:hidden border-t border-black/10 bg-white px-4 py-4 text-black"
+      class="border-t border-white/10 bg-gray-950 px-4 py-4 text-white sm:hidden"
     >
       <ul class="flex flex-col gap-2 text-lg">
+        <li>
+          <a href="/" class="menu-link" @click="close">Home</a>
+        </li>
+        <li>
+          <a href="#offer" class="menu-link" @click="close">Oferta</a>
+        </li>
         <li>
           <a href="#gallery" class="menu-link" @click="close">Galeria</a>
         </li>
@@ -67,18 +67,10 @@
       </ul>
     </div>
   </header>
-
-  <!-- Sentinel: visible only at very top -->
-  <div ref="topSentinel" class="h-px w-px" />
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
-
 const isOpen = ref(false)
-const scrolled = ref(false)
-const topSentinel = ref(null)
-let io
 
 const close = () => { isOpen.value = false }
 
@@ -87,18 +79,11 @@ watch(isOpen, v => { document.body.style.overflow = v ? 'hidden' : '' })
 const onHash = () => close()
 
 onMounted(() => {
-  io = new IntersectionObserver(
-    ([entry]) => { scrolled.value = !entry.isIntersecting },
-    { root: null, threshold: 1 }
-  )
-  if (topSentinel.value) io.observe(topSentinel.value)
-
   window.addEventListener('hashchange', onHash)
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('hashchange', onHash)
-  if (io && topSentinel.value) io.unobserve(topSentinel.value)
   document.body.style.overflow = ''
 })
 </script>
@@ -121,7 +106,7 @@ onBeforeUnmount(() => {
 
 @media (min-width: 640px) {
   .logo {
-    font-size: 3rem;
+    font-size: 2.5rem;
     -webkit-text-stroke: 10px black;
   }
 }

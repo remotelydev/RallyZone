@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import NabBar from '../components/NavBar.vue'
 import HeroVideo from '../components/HeroVideo.vue'
-import Greeting from '../components/Greeting.vue'
+import Included from '../components/Included.vue'
+import HowItWorks from '../components/HowItWorks.vue'
 import Offer from '../components/Offer.vue'
 import Gallery from '../components/GallerySection.vue'
 import Contact from '../components/Contact.vue'
-// import Cards from '../components/Cards.vue'
+import StickyCallBar from '../components/StickyCallBar.vue'
 
 useSiteSeo()
 </script>
@@ -15,11 +16,12 @@ useSiteSeo()
     <NabBar />
     <main id="main-content" tabindex="-1">
       <HeroVideo />
-      <Greeting />
+      <Included />
+      <HowItWorks />
       <Offer />
       <Gallery />
-      <!-- <Cards /> -->
       <Contact />
     </main>
+    <StickyCallBar />
   </div>
 </template>

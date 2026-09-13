@@ -1,35 +1,35 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
-
 const gallery = [
-  { src: '/pics/gallery/1.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym – widok z przodu' },
-  { src: '/pics/gallery/1-2.jpg', alt: 'Peugeot 208 Rally2 RallyZone na szutrze' },
-  { src: '/pics/gallery/1-3.jpg', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy na odcinku szutrowym' },
-  { src: '/pics/gallery/1-4.jpg', alt: 'Biały Peugeot 208 Rally2 RallyZone na drodze szutrowej' },
-  { src: '/pics/gallery/1-5.jpg', alt: 'Peugeot 208 Rally2 RallyZone na szutrze z unoszącym się pyłem' },
-  { src: '/pics/gallery/1-6.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-  { src: '/pics/gallery/1-7.jpg', alt: 'Rajdowy Peugeot 208 Rally2 RallyZone w terenie' },
-  { src: '/pics/gallery/1-8.jpg', alt: 'Peugeot 208 Rally2 RallyZone na szutrowej drodze' },
-  { src: '/pics/gallery/1-9.jpg', alt: 'Peugeot 208 Rally2 RallyZone – widok z boku na odcinku szutrowym' },
-  { src: '/pics/gallery/1-10.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-  { src: '/pics/gallery/1-11.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym – widok z boku' },
-  { src: '/pics/gallery/1-12.jpg', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy terenowej' },
-  { src: '/pics/gallery/1-13.jpg', alt: 'Biała rajdówka Peugeot 208 Rally2 RallyZone na szutrze' },
-  { src: '/pics/gallery/1-14.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-  { src: '/pics/gallery/1-15.jpg', alt: 'Peugeot 208 Rally2 RallyZone w pyle szutrowym' },
-  { src: '/pics/gallery/1-16.jpg', alt: 'Peugeot 208 Rally2 RallyZone na drodze gruntowej' },
-  { src: '/pics/gallery/1-17.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-  { src: '/pics/gallery/1-18.jpg', alt: 'Rajdowy Peugeot 208 Rally2 RallyZone na szutrze' },
-  { src: '/pics/gallery/1-19.jpg', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy na szutrze' },
-  { src: '/pics/gallery/1-20.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
+  { src: '/pics/gallery/1.jpg', caption: 'Szuter – odcinek polny', alt: 'Peugeot 208 Rally2 RallyZone na szutrowym odcinku polnym, widok z przodu' },
+  { src: '/pics/gallery/1-2.jpg', caption: 'Szuter – jazda z pędem', alt: 'Peugeot 208 Rally2 RallyZone w pędzie na szutrze' },
+  { src: '/pics/gallery/1-5.jpg', caption: 'Szuter – na odcinku', alt: 'Peugeot 208 Rally2 RallyZone na szutrze z unoszącym się pyłem' },
+  { src: '/pics/gallery/1-7.jpg', caption: 'Szuter – przy serwisie', alt: 'Peugeot 208 Rally2 RallyZone mija namiot serwisowy na szutrze' },
+  { src: '/pics/gallery/1-9.jpg', caption: 'Szuter – pył na odcinku', alt: 'Peugeot 208 Rally2 RallyZone w chmurze pyłu na odcinku szutrowym' },
+  { src: '/pics/gallery/1-13.jpg', caption: 'Szuter – za kierownicą', alt: 'Peugeot 208 Rally2 RallyZone z boku, kierowca w kasku na szutrze' },
+  { src: '/pics/gallery/1-15.jpg', caption: 'Szuter – nad krawędzią', alt: 'Peugeot 208 Rally2 RallyZone na krawędzi szutrowego odcinka' },
+  { src: '/pics/gallery/1-18.jpg', caption: 'Szuter – otwarty teren', alt: 'Peugeot 208 Rally2 RallyZone na otwartym szutrze z smugą pyłu' },
+  { src: '/pics/gallery/1-3.jpg', caption: 'Szuter – odcinek treningowy', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy na odcinku szutrowym' },
+  { src: '/pics/gallery/1-4.jpg', caption: 'Szuter – pęd na polu', alt: 'Biały Peugeot 208 Rally2 RallyZone na drodze szutrowej' },
+  { src: '/pics/gallery/1-6.jpg', caption: 'Szuter – odcinek gruntowy', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
+  { src: '/pics/gallery/1-8.jpg', caption: 'Szuter – droga gruntowa', alt: 'Peugeot 208 Rally2 RallyZone na szutrowej drodze' },
+  { src: '/pics/gallery/1-10.jpg', caption: 'Szuter – między polami', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym między polami' },
+  { src: '/pics/gallery/1-11.jpg', caption: 'Szuter – zakręt', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym, widok z boku' },
+  { src: '/pics/gallery/1-12.jpg', caption: 'Szuter – jazda terenowa', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy terenowej' },
+  { src: '/pics/gallery/1-14.jpg', caption: 'Szuter – odcinek RallyZone', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
+  { src: '/pics/gallery/1-16.jpg', caption: 'Szuter – obok trasy', alt: 'Peugeot 208 Rally2 RallyZone na drodze gruntowej obok innych aut' },
+  { src: '/pics/gallery/1-17.jpg', caption: 'Szuter – odcinek polny', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
+  { src: '/pics/gallery/1-19.jpg', caption: 'Szuter – w pyle', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy na szutrze' },
+  { src: '/pics/gallery/1-20.jpg', caption: 'Szuter – równolegle do drogi', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
 ]
+
+const thumbs = gallery.slice(0, 8)
 
 const isOpen = ref(false)
 const index = ref<number | null>(null)
 const currentSrc = computed(() => (index.value != null ? gallery[index.value].src : ''))
 const currentAlt = computed(() => (index.value != null ? gallery[index.value].alt : ''))
+const currentCaption = computed(() => (index.value != null ? gallery[index.value].caption : ''))
 
-// focus management
 const thumbRefs = ref<HTMLButtonElement[]>([])
 const closeBtn = ref<HTMLButtonElement | null>(null)
 const dialogRef = ref<HTMLElement | null>(null)
@@ -49,7 +49,8 @@ function close() {
   index.value = null
   lockScroll(false)
   nextTick(() => {
-    if (toRestore > -1) thumbRefs.value[toRestore]?.focus()
+    const focusIndex = Math.min(Math.max(toRestore, 0), thumbs.length - 1)
+    thumbRefs.value[focusIndex]?.focus()
   })
 }
 
@@ -92,7 +93,6 @@ function lockScroll(lock: boolean) {
   }
 }
 
-// preload neighbors to avoid flicker
 watch(index, (i) => {
   if (i == null) return
   const n = (i + 1) % gallery.length
@@ -105,71 +105,48 @@ watch(index, (i) => {
 
 onMounted(() => document.addEventListener('keydown', onKey))
 onBeforeUnmount(() => document.removeEventListener('keydown', onKey))
-
-const ROWS = 2
-const THUMB_H = 200  // tweak; make responsive if you want
-const cols = computed(() => Math.ceil(gallery.length / ROWS))
-
-const gridStyle = computed(() => ({
-  // sizing vars
-  '--thumb-h': `${THUMB_H}px`,
-  '--thumb-w': `calc(var(--thumb-h) * 4 / 3)`,
-  // templates (NOTE: numeric repeat counts, no CSS var in the count)
-  gridTemplateRows: `repeat(${ROWS}, var(--thumb-h))`,
-  gridTemplateColumns: `repeat(${cols.value}, var(--thumb-w))`,
-}))
 </script>
 
 <template>
-  <section id="gallery" class="mx-auto max-w-7xl px-6 py-16" aria-labelledby="gallery-title">
+  <section id="gallery" class="mx-auto max-w-7xl scroll-mt-24 px-6 py-16" aria-labelledby="gallery-title">
     <div class="mb-8 max-w-2xl">
       <h2 id="gallery-title" class="text-3xl font-bold">Galeria RallyZone</h2>
-      <p class="mt-3 text-lg text-slate-700">Zobacz rajdową atmosferę, nasze samochody i przygotowania do startów.</p>
+      <p class="mt-3 text-lg text-slate-700">Peugeot 208 Rally2 na szutrze. Kliknij zdjęcie, żeby zobaczyć resztę.</p>
     </div>
-    <!-- <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+
+    <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
       <button
-        v-for="(src, i) in gallery"
-        :key="src"
-        type="button"
-        class="group block relative rounded-xl overflow-hidden focus:outline-none"
-        @click="open(i)"
-        :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
-        :ref="el => (thumbRefs[i] = el as HTMLButtonElement)"
-      >
-        <div class="pt-[66%]" />
-        <img
-          :src="src"
-          :alt="`RallyZone – zdjęcie z galerii rajdowej ${i + 1}`"
-          class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          loading="lazy"
-          decoding="async"
-        >
-      </button>
-    </div> -->
-<div
-  class="grid grid-flow-row overflow-x-auto overscroll-x-contain gap-3 md:gap-4 snap-x snap-mandatory pe-4
-         scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none]"
-  :style="gridStyle"
->
-      <button
-        v-for="(item, i) in gallery"
+        v-for="(item, i) in thumbs"
         :key="item.src"
         :ref="el => (thumbRefs[i] = el as HTMLButtonElement)"
         type="button"
-        class="group relative rounded-xl overflow-hidden focus:outline-none w-full h-full snap-start"
-        :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
+        class="group relative aspect-[4/3] overflow-hidden rounded-xl focus:outline-none"
+        :aria-label="`Otwórz: ${item.caption}`"
         @click="open(i)"
       >
         <img
           :src="item.src"
           :alt="item.alt"
           class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          loading="lazy" decoding="async"
+          loading="lazy"
+          decoding="async"
         >
+        <span class="absolute inset-x-0 bottom-0 bg-black/65 px-2 py-1.5 text-left text-sm text-white">
+          {{ item.caption }}
+        </span>
       </button>
     </div>
 
-    <!-- Modal / Lightbox -->
+    <p class="mt-6">
+      <button
+        type="button"
+        class="font-semibold text-[#ec1c24] underline decoration-2 underline-offset-4 hover:text-[#c4161d]"
+        @click="open(8)"
+      >
+        Więcej zdjęć z odcinka
+      </button>
+    </p>
+
     <Teleport to="body">
       <Transition
         enter-active-class="duration-200 ease-out"
@@ -182,51 +159,46 @@ const gridStyle = computed(() => ({
         <div
           v-if="isOpen"
           ref="dialogRef"
-          class="fixed inset-0 z-50"
+          class="fixed inset-0 z-[80]"
           role="dialog"
           aria-modal="true"
           aria-label="Podgląd zdjęcia"
           @click.self="close"
         >
-          <!-- backdrop -->
           <div class="absolute inset-0 bg-black/70" @click="close" />
 
-          <!-- content -->
-          <div class="absolute inset-0 flex items-center justify-center p-4" @click="close">
-            <!-- prev -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-4" @click="close">
             <button
               type="button"
-              class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 rounded-full p-2 md:p-3 bg-black/50 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70"
+              class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70 md:left-4 md:p-3"
               aria-label="Poprzednie zdjęcie"
               @click.stop="prev"
             >
               ‹
             </button>
 
-            <!-- image -->
             <img
               v-if="currentSrc"
               :src="currentSrc"
               :alt="currentAlt"
-              class="max-h-[85vh] max-w-[90vw] object-contain rounded-xl shadow-2xl"
+              class="max-h-[80vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
               decoding="async"
             >
+            <p v-if="currentCaption" class="mt-3 text-center text-white">{{ currentCaption }}</p>
 
-            <!-- next -->
             <button
               type="button"
-              class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 rounded-full p-2 md:p-3 bg-black/50 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70"
+              class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70 md:right-4 md:p-3"
               aria-label="Następne zdjęcie"
               @click.stop="next"
             >
               ›
             </button>
 
-            <!-- close -->
             <button
               ref="closeBtn"
               type="button"
-              class="absolute top-2 right-2 md:top-4 md:right-4 rounded-full p-2 md:p-3 bg-black/50 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70"
+              class="absolute top-2 right-2 rounded-full bg-black/50 p-2 text-white hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/70 md:top-4 md:right-4 md:p-3"
               aria-label="Zamknij podgląd (Esc)"
               @click="close"
             >
