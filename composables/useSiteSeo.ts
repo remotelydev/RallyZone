@@ -1,0 +1,48 @@
+export const siteUrl = 'https://rallyzone.pl/'
+export const defaultTitle = 'RallyZone – wynajem rajdowego Peugeota 208 Rally2'
+export const defaultDescription = 'RallyZone oferuje wynajem rajdowego Peugeota 208 Rally2 z pełnym zapleczem serwisowym. Startuj na asfalcie lub szutrze – skontaktuj się z nami.'
+export const ogImage = `${siteUrl}og-rallyzone-208.jpg`
+
+export function useSiteSeo() {
+  useSeoMeta({
+    title: defaultTitle,
+    description: defaultDescription,
+    ogTitle: defaultTitle,
+    ogDescription: defaultDescription,
+    ogType: 'website',
+    ogUrl: siteUrl,
+    ogLocale: 'pl_PL',
+    ogImage,
+    twitterCard: 'summary_large_image',
+    twitterTitle: defaultTitle,
+    twitterDescription: defaultDescription,
+    twitterImage: ogImage,
+  })
+
+  useHead({
+    link: [
+      { rel: 'canonical', href: siteUrl },
+      { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+    ],
+    script: [{
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: 'RallyZone',
+        url: siteUrl,
+        email: 'rallyzone.pl@gmail.com',
+        telephone: '+48 501 101 994',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Zdrojki Prawe 95',
+          postalCode: '62-700',
+          addressLocality: 'Turek',
+          addressCountry: 'PL',
+        },
+        description: defaultDescription,
+      }),
+    }],
+  })
+}

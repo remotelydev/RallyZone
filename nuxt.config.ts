@@ -27,4 +27,9 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/main.css'],
   modules: ['@nuxt/eslint'],
+  router: {
+    options: {
+      trailingSlash: true,
+    },
+  },
 })
