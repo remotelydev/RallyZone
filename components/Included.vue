@@ -47,7 +47,7 @@ onMounted(() => {
         </ul>
         <p class="mt-8 text-lg text-slate-800">
           Resztę ustalisz z nami przez telefon —
-          <CallLink class="font-semibold text-[#ec1c24] underline decoration-2 underline-offset-4 hover:text-[#c4161d]">
+          <CallLink location="included" class="font-semibold text-[#ec1c24] underline decoration-2 underline-offset-4 hover:text-[#c4161d]">
             zadzwoń po szczegóły
           </CallLink>.
         </p>

@@ -36,6 +36,11 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/main.css'],
   modules: ['@nuxt/eslint'],
+  runtimeConfig: {
+    public: {
+      gaMeasurementId: '',
+    },
+  },
   router: {
     options: {
       trailingSlash: true,

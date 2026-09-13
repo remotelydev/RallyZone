@@ -8,6 +8,7 @@ import { PHONE_DISPLAY } from '~/utils/contact'
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom))"
   >
     <CallLink
+      location="sticky"
       class="flex min-h-12 w-full items-center justify-center rounded-2xl bg-[#ec1c24] px-5 py-3 text-lg font-semibold text-white hover:bg-[#c4161d]"
     >
       Zadzwoń {{ PHONE_DISPLAY }}

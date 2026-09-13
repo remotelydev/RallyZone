@@ -12,7 +12,7 @@
           Rajdówka w pełnej specyfikacji, z serwisem i zespołem RallyZone. Ty skupiasz się na prowadzeniu.
         </p>
         <p class="mt-6">
-          <CallLink class="font-semibold text-[#ec1c24] underline decoration-2 underline-offset-4 hover:text-[#ff4d53]">
+          <CallLink location="offer-208" class="font-semibold text-[#ec1c24] underline decoration-2 underline-offset-4 hover:text-[#ff4d53]">
             Zadzwoń po szczegóły
           </CallLink>
         </p>
@@ -24,7 +24,7 @@
           Dla młodszych entuzjastów motorsportu: niewielkie auto i duże emocje na dobry początek rajdowej przygody.
         </p>
         <p class="mt-6">
-          <CallLink class="font-semibold text-[#ec1c24] underline decoration-2 underline-offset-4 hover:text-[#c4161d]">
+          <CallLink location="offer-corsa" class="font-semibold text-[#ec1c24] underline decoration-2 underline-offset-4 hover:text-[#c4161d]">
             Zadzwoń po szczegóły
           </CallLink>
         </p>

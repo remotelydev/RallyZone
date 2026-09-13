@@ -34,7 +34,7 @@ const steps = [
         </li>
       </ol>
       <div class="mt-10">
-        <CallLink class="inline-flex rounded-2xl bg-[#ec1c24] px-6 py-3 text-lg font-semibold text-white hover:bg-[#c4161d]">
+        <CallLink location="process" class="inline-flex rounded-2xl bg-[#ec1c24] px-6 py-3 text-lg font-semibold text-white hover:bg-[#c4161d]">
           Zadzwoń
         </CallLink>
       </div>

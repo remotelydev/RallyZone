@@ -19,14 +19,14 @@
           <a href="#contact" class="menu-link hover:opacity-70">Kontakt</a>
         </li>
         <li>
-          <CallLink class="menu-link bg-[#ec1c24] text-white hover:bg-[#c4161d]">
+          <CallLink location="nav" class="menu-link bg-[#ec1c24] text-white hover:bg-[#c4161d]">
             Zadzwoń
           </CallLink>
         </li>
       </ul>
 
       <div class="flex items-center gap-1 text-white sm:hidden">
-        <CallLink class="menu-link bg-[#ec1c24] text-base text-white hover:bg-[#c4161d]">
+        <CallLink location="nav-mobile" class="menu-link bg-[#ec1c24] text-base text-white hover:bg-[#c4161d]">
           Zadzwoń
         </CallLink>
         <button

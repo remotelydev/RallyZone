@@ -23,10 +23,10 @@ import { PHONE_DISPLAY } from '~/utils/contact'
         <p class="text-gray-300">
           RallyZone, Turek. Zadzwoń po szczegóły wynajmu Peugeota 208 Rally2 lub Opla Corsy.
         </p>
-        <CallLink class="block text-4xl font-bold tracking-tight text-white hover:text-[#ec1c24] md:text-5xl">
+        <CallLink location="contact-number" class="block text-4xl font-bold tracking-tight text-white hover:text-[#ec1c24] md:text-5xl">
           {{ PHONE_DISPLAY }}
         </CallLink>
-        <CallLink class="inline-flex w-fit rounded-2xl bg-[#ec1c24] px-6 py-3 text-lg font-semibold text-white hover:bg-[#c4161d]">
+        <CallLink location="contact" class="inline-flex w-fit rounded-2xl bg-[#ec1c24] px-6 py-3 text-lg font-semibold text-white hover:bg-[#c4161d]">
           Zadzwoń
         </CallLink>
         <p>

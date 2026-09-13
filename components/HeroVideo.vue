@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
         Peugeot 208 Rally2 i Opel Corsa. Asfalt albo szuter. RallyZone, Turek.
       </p>
       <div class="mt-8 flex gap-3">
-        <CallLink class="rounded-2xl bg-[#ec1c24] px-6 py-3 text-lg font-semibold text-white hover:bg-[#c4161d]">
+        <CallLink location="hero" class="rounded-2xl bg-[#ec1c24] px-6 py-3 text-lg font-semibold text-white hover:bg-[#c4161d]">
           Zadzwoń
         </CallLink>
       </div>
