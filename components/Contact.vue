@@ -3,7 +3,7 @@ import { PHONE_DISPLAY } from '~/utils/contact'
 </script>
 
 <template>
-  <section id="contact" class="scroll-mt-24 bg-gray-950 px-4 py-16 text-gray-100" aria-labelledby="contact-title">
+  <section id="contact" class="scroll-mt-24 bg-gray-950 px-4 pt-16 pb-28 text-gray-100 sm:pb-16" aria-labelledby="contact-title">
     <div
       class="mx-auto grid w-full max-w-6xl grid-cols-1 overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 text-gray-200 shadow-2xl md:grid-cols-2"
     >
@@ -18,7 +18,7 @@ import { PHONE_DISPLAY } from '~/utils/contact'
         />
       </div>
 
-      <div class="flex flex-col justify-center gap-6 bg-gray-900 p-8 md:p-10">
+      <div class="flex flex-col justify-center gap-6 bg-gray-900 p-8 pb-10 md:p-10">
         <h2 id="contact-title" class="text-3xl font-semibold text-white">Kontakt</h2>
         <p class="text-gray-300">
           RallyZone, Turek. Zadzwoń po szczegóły wynajmu Peugeota 208 Rally2 lub Opla Corsy.
