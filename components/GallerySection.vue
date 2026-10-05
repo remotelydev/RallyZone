@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
-import { galleryFiles, galleryFullWidth } from '~/data/gallery'
+import { gallery as photos, galleryFullWidth } from '~/data/gallery'
 
-const gallery = galleryFiles.map(f => `/img/gallery/${f}`)
+const gallery = photos.map(p => `/img/gallery/${p.file}`)
 
 // Full-size view is resized too: WebP instead of the 2048px JPEG originals.
 const img = useImage()
@@ -146,7 +146,7 @@ const gridStyle = computed(() => ({
       >
         <NuxtImg
           :src="src"
-          :alt="`RallyZone – zdjęcie z galerii rajdowej ${i + 1}`"
+          :alt="photos[i].alt"
           class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           width="267"
           height="200"
@@ -197,7 +197,7 @@ const gridStyle = computed(() => ({
             <img
               v-if="currentSrc"
               :src="currentSrc"
-              alt=""
+              :alt="index != null ? photos[index].alt : ''"
               class="max-h-[85vh] max-w-[90vw] object-contain rounded-xl shadow-2xl"
               decoding="async"
             >

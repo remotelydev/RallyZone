@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
-import { galleryFiles, galleryFullWidth } from "./data/gallery";
+import { gallery, galleryFullWidth } from "./data/gallery";
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     prerender: {
       routes: [
         '/',
-        ...galleryFiles.map(f => `/_ipx/w_${galleryFullWidth}&f_webp/img/gallery/${f}`),
+        ...gallery.map(({ file }) => `/_ipx/w_${galleryFullWidth}&f_webp/img/gallery/${file}`),
       ],
     },
   },

@@ -8,7 +8,8 @@
             <p class="mt-4 text-slate-700">
                 Dostarczamy auto, dbamy o jego gotowość, a Ty wybierasz nawierzchnię i skupiasz się na prowadzeniu. Asfalt lub szuter – RallyZone pomoże Ci przygotować się do startu.
             </p>
-            <p class="mt-4 text-slate-700">
+            <h3 class="mt-8 text-xl font-bold text-slate-900">Opel Corsa na początek rajdowej przygody</h3>
+            <p class="mt-2 text-slate-700">
                 Dla młodszych entuzjastów motorsportu mamy również Opla Corsę: niewielkie auto i duże emocje na dobry początek rajdowej przygody.
             </p>
         </div>

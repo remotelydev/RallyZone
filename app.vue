@@ -5,10 +5,11 @@ import Greeting from './components/Greeting.vue'
 import Offer from './components/Offer.vue'
 import Gallery from './components/GallerySection.vue'
 import Contact from './components/Contact.vue'
-// import Cards from './components/Cards.vue'
+import SiteFooter from './components/SiteFooter.vue'
 
 const siteUrl = 'https://rallyzone.pl'
 const title = 'RallyZone – wynajem rajdowego Peugeota 208 Rally2'
+const ogImage = `${siteUrl}/og-image.jpg`
 const description = 'RallyZone oferuje wynajem rajdowego Peugeota 208 Rally2 z pełnym zapleczem serwisowym. Startuj na asfalcie lub szutrze – skontaktuj się z nami.'
 
 useSeoMeta({
@@ -19,9 +20,15 @@ useSeoMeta({
   ogType: 'website',
   ogUrl: siteUrl,
   ogLocale: 'pl_PL',
-  twitterCard: 'summary',
+  ogSiteName: 'RallyZone',
+  ogImage,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: 'Rajdowy Peugeot 208 RallyZone na szutrze',
+  twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: description,
+  twitterImage: ogImage,
 })
 
 useHead({
@@ -32,8 +39,10 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'LocalBusiness',
+      '@id': `${siteUrl}/#business`,
       name: 'RallyZone',
       url: siteUrl,
+      image: ogImage,
       email: 'rallyzone.pl@gmail.com',
       telephone: '+48 501 101 994',
       address: {
@@ -41,8 +50,33 @@ useHead({
         streetAddress: 'Zdrojki Prawe 95',
         postalCode: '62-700',
         addressLocality: 'Turek',
+        addressRegion: 'wielkopolskie',
         addressCountry: 'PL',
       },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 52.022987,
+        longitude: 18.509945,
+      },
+      areaServed: { '@type': 'Country', name: 'Polska' },
+      makesOffer: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Wynajem rajdowego Peugeota 208 Rally2',
+            description: 'Wynajem Peugeota 208 Rally2 z serwisem i zapleczem na starty na asfalcie i szutrze.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Wynajem rajdowego Opla Corsy',
+            description: 'Opel Corsa dla młodszych zawodników na początek rajdowej przygody.',
+          },
+        },
+      ],
       description,
     }),
   }],
@@ -60,8 +94,8 @@ useHead({
       <Greeting />
       <Offer />
       <Gallery />
-      <!-- <Cards /> -->
       <Contact />
     </main>
+    <SiteFooter />
   </div>
 </template>
