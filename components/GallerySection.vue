@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
+import { galleryFiles, galleryFullWidth } from '~/data/gallery'
 
-const modules = import.meta.glob('~/assets/pics/gallery/*.{jpg,jpeg,png,webp}', {
-  eager: true,
-  import: 'default'
-}) as Record<string, string>
+const gallery = galleryFiles.map(f => `/img/gallery/${f}`)
 
-const gallery = Object.entries(modules)
-  .sort(([a], [b]) => a.localeCompare(b))
-  .map(([, src]) => src)
+// Full-size view is resized too: WebP instead of the 2048px JPEG originals.
+const img = useImage()
+const fullSrc = (src: string) => img(src, { width: galleryFullWidth, format: 'webp' })
 
 // state
 const isOpen = ref(false)
 const index = ref<number | null>(null)
-const currentSrc = computed(() => (index.value != null ? gallery[index.value] : ''))
+const currentSrc = computed(() => (index.value != null ? fullSrc(gallery[index.value]) : ''))
 
 // focus management
 const thumbRefs = ref<HTMLButtonElement[]>([])
@@ -84,8 +82,8 @@ watch(index, (i) => {
   const n = (i + 1) % gallery.length
   const p = (i - 1 + gallery.length) % gallery.length
   ;[n, p].forEach(idx => {
-    const img = new Image()
-    img.src = gallery[idx]
+    const preload = new Image()
+    preload.src = fullSrc(gallery[idx])
   })
 })
 
@@ -146,12 +144,18 @@ const gridStyle = computed(() => ({
         :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
         @click="open(i)"
       >
-        <img
+        <NuxtImg
           :src="src"
           :alt="`RallyZone – zdjęcie z galerii rajdowej ${i + 1}`"
           class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          loading="lazy" decoding="async"
-        >
+          width="267"
+          height="200"
+          densities="x1 x2"
+          fit="cover"
+          format="webp"
+          loading="lazy"
+          decoding="async"
+        />
       </button>
     </div>
 

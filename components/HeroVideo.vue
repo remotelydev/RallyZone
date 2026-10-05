@@ -1,22 +1,48 @@
 <script setup>
-import heroMobile from '@/assets/vids/hero_mobile.mp4'
-import heroDesktop from '@/assets/vids/hero_desktop.mp4'
-import heroMobileWebm from '@/assets/vids/hero_mobile.webm'
-import heroDesktopWebm from '@/assets/vids/hero_desktop.webm'
-import heroPoster from '@/assets/pics/hero_poster.jpg'
+import { ref, onMounted } from 'vue'
+
+const heroMobile = '/vids/hero_mobile.mp4'
+const heroDesktop = '/vids/hero_desktop.mp4'
+const heroMobileWebm = '/vids/hero_mobile.webm'
+const heroDesktopWebm = '/vids/hero_desktop.webm'
+
+// The poster image is the LCP element; the video only loads after hydration
+// and is skipped for reduced motion and data-saver users.
+const showVideo = ref(false)
+const videoReady = ref(false)
+
+onMounted(() => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const saveData = navigator.connection?.saveData === true
+  showVideo.value = !reducedMotion && !saveData
+})
 </script>
 
 <template>
-<section class="relative h-[90vh] min-h-[560px] w-full overflow-hidden" aria-labelledby="hero-title">
-  <!-- Background video -->
-  <video
+<section class="relative h-[90vh] h-[90svh] min-h-[560px] w-full overflow-hidden" aria-labelledby="hero-title">
+  <NuxtImg
+    src="/img/hero_poster.jpg"
+    alt=""
     class="absolute inset-0 h-full w-full object-cover"
+    sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw xxl:100vw"
+    densities="x1"
+    format="webp"
+    fetchpriority="high"
+    loading="eager"
+    preload
+  />
+
+  <video
+    v-if="showVideo"
+    class="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
+    :class="videoReady ? 'opacity-100' : 'opacity-0'"
     autoplay
     muted
     loop
     playsinline
-    :poster="heroPoster"
-    preload="metadata"
+    preload="auto"
+    aria-hidden="true"
+    @playing="videoReady = true"
   >
     <!-- WebM provides smaller files on supported browsers. -->
     <source :src="heroMobileWebm" type="video/webm" media="(max-width: 768px)" >
@@ -24,8 +50,6 @@ import heroPoster from '@/assets/pics/hero_poster.jpg'
     <!-- MP4 fallback -->
     <source :src="heroMobile" type="video/mp4" media="(max-width: 768px)" >
     <source :src="heroDesktop" type="video/mp4" media="(min-width: 769px)" >
-    <!-- Fallback -->
-    Your browser does not support the video tag.
   </video>
 
   <!-- Overlay for readability -->
@@ -44,12 +68,8 @@ import heroPoster from '@/assets/pics/hero_poster.jpg'
         <a href="tel:+48501101994" class="rounded-2xl bg-white/90 px-5 py-3 text-black">
           Zapytaj o termin
         </a>
-        <!-- <a href="#" class="rounded-2xl border border-white/60 px-5 py-3">
-          Zobacz flotę
-        </a> -->
       </div>
     </div>
   </div>
 </section>
-    
 </template>

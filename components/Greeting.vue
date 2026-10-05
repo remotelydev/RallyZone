@@ -1,7 +1,9 @@
 <script setup>
-import torHeader from '@/assets/vids/tor_header_audio.mp4'
-import torHeaderWebm from '@/assets/vids/tor_header_audio.webm'
-import heroPoster from '@/assets/pics/hero_poster.jpg'
+const torHeader = '/vids/tor_header_audio.mp4'
+const torHeaderWebm = '/vids/tor_header_audio.webm'
+
+const img = useImage()
+const heroPoster = img('/img/hero_poster.jpg', { width: 1280, format: 'webp' })
 </script>
 
 <template>
@@ -20,7 +22,7 @@ import heroPoster from '@/assets/pics/hero_poster.jpg'
             <video
               class="h-full w-full object-cover"
               controls
-              preload="metadata"
+              preload="none"
               playsinline
               :poster="heroPoster"
             >
