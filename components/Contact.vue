@@ -1,5 +1,16 @@
 <script setup lang="ts">
 const showMap = ref(false)
+
+// Load Google Maps once the page has finished loading and the browser is idle,
+// so its scripts never compete with the hero image (LCP) or hydration.
+onMounted(() => {
+  const loadMap = () => {
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1))
+    idle(() => { showMap.value = true }, { timeout: 2000 })
+  }
+  if (document.readyState === 'complete') loadMap()
+  else window.addEventListener('load', loadMap, { once: true })
+})
 const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2455.1158546678384!2d18.509945376333043!3d52.022987072908265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471b18a5c3596c61%3A0xc162632d2c14b968!2sZdrojki%20Prawe%2095%2C%2062-700%20Turek!5e0!3m2!1spl!2spl!4v1760106749921!5m2!1spl!2spl'
 </script>
 
@@ -29,7 +40,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2455.11585
         </div>
       </div>
 
-      <!-- Map: loads Google Maps only on request, so its scripts don't weigh on page load -->
+      <!-- Map: Google Maps loads after page load (see script); the placeholder shows until then -->
       <div class="relative min-h-80 border-2 border-line bg-[repeating-linear-gradient(-16deg,#141414_0_18px,#191919_18px_36px)] md:min-h-[28rem]">
         <iframe
           v-if="showMap"
