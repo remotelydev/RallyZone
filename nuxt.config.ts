@@ -15,6 +15,10 @@ function writeStatic404() {
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
+  // One static page: inline the payload instead of fetching _payload.json.
+  experimental: {
+    payloadExtraction: false,
+  },
   nitro: {
     preset: 'static',
     prerender: {

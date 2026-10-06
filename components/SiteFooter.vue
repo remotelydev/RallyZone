@@ -7,8 +7,8 @@
       </div>
       <address class="not-italic leading-relaxed">
         Zdrojki Prawe 95, 62-700 Turek<br>
-        <a href="tel:+48501101994" class="hover:text-brand">+48 501 101 994</a><br>
-        <a href="mailto:rallyzone.pl@gmail.com" class="hover:text-brand">rallyzone.pl@gmail.com</a>
+        <a href="tel:+48501101994" class="inline-block py-1.5 hover:text-brand">+48 501 101 994</a><br>
+        <a href="mailto:rallyzone.pl@gmail.com" class="inline-block py-1.5 hover:text-brand">rallyzone.pl@gmail.com</a>
       </address>
       <nav aria-label="Stopka">
         <ul class="flex gap-4">
@@ -19,7 +19,7 @@
         </ul>
       </nav>
     </div>
-    <p class="mx-auto mt-8 max-w-7xl border-t border-line pt-6 text-white/40">© {{ year }} RallyZone</p>
+    <p class="mx-auto mt-8 max-w-7xl border-t border-line pt-6 text-white/60">© {{ year }} RallyZone</p>
   </footer>
 </template>
 

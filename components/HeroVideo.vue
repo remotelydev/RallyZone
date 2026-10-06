@@ -31,7 +31,7 @@ onBeforeUnmount(() => {
     format="webp"
     fetchpriority="high"
     loading="eager"
-    preload
+    :preload="{ fetchPriority: 'high' }"
     class="absolute inset-0 h-full w-full object-cover"
   />
 

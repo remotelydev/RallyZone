@@ -5,16 +5,41 @@
 @import "@fontsource/saira-condensed/800.css";
 @import "tailwindcss";
 
+/* Fallback faces sized to match Saira, so text does not reflow (CLS) when the
+   web fonts arrive. size-adjust was measured against Arial / Liberation Sans:
+   Saira Condensed 800 is 69.3% as wide as Arial Bold, Saira 400 is 103%.
+   The overrides are Saira's ascent (1.135) and descent (0.439) divided by size-adjust. */
+@font-face {
+  font-family: "Saira Condensed Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("Roboto Bold"), local("Roboto");
+  font-weight: 800;
+  size-adjust: 69.3%;
+  ascent-override: 163.8%;
+  descent-override: 63.3%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Saira Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Roboto");
+  size-adjust: 103%;
+  ascent-override: 110.2%;
+  descent-override: 42.6%;
+  line-gap-override: 0%;
+}
+
 @theme {
   --color-ink: #0e0e0e;
   --color-paper: #f4f2ee;
   --color-brand: #ec1c24;
   --color-brand-dark: #c4141b;
+  /* Red for small text on the dark background (5.6:1 on ink). */
+  --color-brand-light: #ff4048;
   --color-steel: #6b6b6b;
   --color-line: #2a2a2a;
 
-  --font-sans: "Saira Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Saira Condensed", "Arial Narrow", ui-sans-serif, sans-serif;
+  --font-sans: "Saira Variable", "Saira Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Saira Condensed", "Saira Condensed Fallback", "Arial Narrow", ui-sans-serif, sans-serif;
 }
 
 @layer base {
@@ -67,13 +92,14 @@
     transform: skewX(12deg);
   }
 
+  /* brand-dark keeps white button text above the 4.5:1 contrast minimum. */
   .btn-primary {
-    background: var(--color-brand);
+    background: var(--color-brand-dark);
     color: #fff;
   }
 
   .btn-primary:hover {
-    background: var(--color-brand-dark);
+    background: #a30f15;
   }
 
   .btn-outline {
@@ -96,7 +122,7 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.875rem;
-    color: var(--color-brand);
+    color: var(--color-brand-dark);
   }
 }
 
