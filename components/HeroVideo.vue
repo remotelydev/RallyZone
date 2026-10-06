@@ -10,12 +10,6 @@ function update() {
   playDesktopVideo.value = mediaQuery?.matches ?? false
 }
 
-useHead({
-  link: [
-    { rel: 'preload', as: 'image', href: poster },
-  ],
-})
-
 onMounted(() => {
   mediaQuery = window.matchMedia('(min-width: 769px)')
   update()
@@ -29,15 +23,17 @@ onBeforeUnmount(() => {
 
 <template>
 <section class="relative h-[90vh] min-h-[560px] w-full overflow-hidden" aria-labelledby="hero-title">
-  <img
+  <NuxtImg
     :src="poster"
     alt="Peugeot 208 Rally2 RallyZone"
-    width="1600"
-    height="1066"
+    sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw"
+    densities="x1"
+    format="webp"
     fetchpriority="high"
-    decoding="async"
+    loading="eager"
+    preload
     class="absolute inset-0 h-full w-full object-cover"
-  >
+  />
 
   <video
     v-if="playDesktopVideo"
@@ -46,7 +42,6 @@ onBeforeUnmount(() => {
     muted
     loop
     playsinline
-    :poster="poster"
     preload="none"
   >
     <source :src="desktopWebm" type="video/webm">

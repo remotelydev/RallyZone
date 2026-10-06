@@ -1,5 +1,6 @@
 <script setup>
-const poster = '/pics/hero-poster.jpg'
+const img = useImage()
+const poster = img('/pics/hero-poster.jpg', { width: 1024, format: 'webp' })
 const webm = '/vids/tor_header_audio.webm'
 const mp4 = '/vids/tor_header_audio.mp4'
 

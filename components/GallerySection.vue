@@ -1,32 +1,16 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
+import { galleryAlts, galleryFiles, galleryFullWidth } from '~/utils/gallery'
 
-const gallery = [
-  { src: '/pics/gallery/1.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym – widok z przodu' },
-  { src: '/pics/gallery/1-2.jpg', alt: 'Peugeot 208 Rally2 RallyZone na szutrze' },
-  { src: '/pics/gallery/1-3.jpg', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy na odcinku szutrowym' },
-  { src: '/pics/gallery/1-4.jpg', alt: 'Biały Peugeot 208 Rally2 RallyZone na drodze szutrowej' },
-  { src: '/pics/gallery/1-5.jpg', alt: 'Peugeot 208 Rally2 RallyZone na szutrze z unoszącym się pyłem' },
-  { src: '/pics/gallery/1-6.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-  { src: '/pics/gallery/1-7.jpg', alt: 'Rajdowy Peugeot 208 Rally2 RallyZone w terenie' },
-  { src: '/pics/gallery/1-8.jpg', alt: 'Peugeot 208 Rally2 RallyZone na szutrowej drodze' },
-  { src: '/pics/gallery/1-9.jpg', alt: 'Peugeot 208 Rally2 RallyZone – widok z boku na odcinku szutrowym' },
-  { src: '/pics/gallery/1-10.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-  { src: '/pics/gallery/1-11.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym – widok z boku' },
-  { src: '/pics/gallery/1-12.jpg', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy terenowej' },
-  { src: '/pics/gallery/1-13.jpg', alt: 'Biała rajdówka Peugeot 208 Rally2 RallyZone na szutrze' },
-  { src: '/pics/gallery/1-14.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-  { src: '/pics/gallery/1-15.jpg', alt: 'Peugeot 208 Rally2 RallyZone w pyle szutrowym' },
-  { src: '/pics/gallery/1-16.jpg', alt: 'Peugeot 208 Rally2 RallyZone na drodze gruntowej' },
-  { src: '/pics/gallery/1-17.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-  { src: '/pics/gallery/1-18.jpg', alt: 'Rajdowy Peugeot 208 Rally2 RallyZone na szutrze' },
-  { src: '/pics/gallery/1-19.jpg', alt: 'Peugeot 208 Rally2 RallyZone podczas jazdy na szutrze' },
-  { src: '/pics/gallery/1-20.jpg', alt: 'Peugeot 208 Rally2 RallyZone na odcinku szutrowym' },
-]
+const gallery = galleryAlts.map((alt, i) => ({ src: `/pics/gallery/${galleryFiles[i]}`, alt }))
+
+// The lightbox shows a resized WebP instead of the 2048px JPEG original.
+const img = useImage()
+const fullSrc = (src: string) => img(src, { width: galleryFullWidth, format: 'webp' })
 
 const isOpen = ref(false)
 const index = ref<number | null>(null)
-const currentSrc = computed(() => (index.value != null ? gallery[index.value].src : ''))
+const currentSrc = computed(() => (index.value != null ? fullSrc(gallery[index.value].src) : ''))
 const currentAlt = computed(() => (index.value != null ? gallery[index.value].alt : ''))
 
 // focus management
@@ -98,8 +82,8 @@ watch(index, (i) => {
   const n = (i + 1) % gallery.length
   const p = (i - 1 + gallery.length) % gallery.length
   ;[n, p].forEach(idx => {
-    const img = new Image()
-    img.src = gallery[idx].src
+    const preload = new Image()
+    preload.src = fullSrc(gallery[idx].src)
   })
 })
 
@@ -160,12 +144,18 @@ const gridStyle = computed(() => ({
         :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
         @click="open(i)"
       >
-        <img
+        <NuxtImg
           :src="item.src"
           :alt="item.alt"
           class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          loading="lazy" decoding="async"
-        >
+          width="267"
+          height="200"
+          densities="x1 x2"
+          fit="cover"
+          format="webp"
+          loading="lazy"
+          decoding="async"
+        />
       </button>
     </div>
 

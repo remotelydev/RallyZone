@@ -2,6 +2,7 @@
 import { copyFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import tailwindcss from "@tailwindcss/vite";
+import { galleryFiles, galleryFullWidth } from './utils/gallery'
 
 function writeStatic404() {
   const src = join(process.cwd(), 'public/404.html')
@@ -17,7 +18,11 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'static',
     prerender: {
-      routes: ['/'],
+      routes: [
+        '/',
+        // Lightbox images are not in the HTML, so prerender them explicitly.
+        ...galleryFiles.map(f => `/_ipx/w_${galleryFullWidth}&f_webp/pics/gallery/${f}`),
+      ],
       failOnError: false,
     },
     hooks: {
@@ -35,7 +40,13 @@ export default defineNuxtConfig({
     plugins:[tailwindcss()]
   },
   css: ['@/assets/main.css'],
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', '@nuxt/image'],
+  image: {
+    // ipx writes resized files into the static build, so this works on any host.
+    provider: 'ipx',
+    quality: 70,
+    screens: { xs: 390, sm: 640, md: 768, lg: 1024, xl: 1280, xxl: 1920 },
+  },
   router: {
     options: {
       trailingSlash: true,
