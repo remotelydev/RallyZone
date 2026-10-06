@@ -1,7 +1,10 @@
 export const siteUrl = 'https://rallyzone.pl/'
-export const defaultTitle = 'RallyZone – wynajem rajdowego Peugeota 208 Rally2'
+// Leads with the phrase people search for; the brand goes last.
+export const defaultTitle = 'Wynajem samochodu rajdowego Peugeot 208 Rally2 | RallyZone'
 export const defaultDescription = 'RallyZone oferuje wynajem rajdowego Peugeota 208 Rally2 z pełnym zapleczem serwisowym. Startuj na asfalcie lub szutrze – skontaktuj się z nami.'
 export const ogImage = `${siteUrl}og-rallyzone-208.jpg`
+const ogImageAlt = 'Biały Peugeot 208 Rally2 RallyZone na szutrowym odcinku'
+const mapUrl = 'https://maps.google.com/?q=Zdrojki+Prawe+95,+62-700+Turek'
 
 export function useSiteSeo() {
   useSeoMeta({
@@ -13,10 +16,16 @@ export function useSiteSeo() {
     ogUrl: siteUrl,
     ogLocale: 'pl_PL',
     ogImage,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    ogImageType: 'image/jpeg',
+    ogImageAlt,
+    ogSiteName: 'RallyZone',
     twitterCard: 'summary_large_image',
     twitterTitle: defaultTitle,
     twitterDescription: defaultDescription,
     twitterImage: ogImage,
+    twitterImageAlt: ogImageAlt,
   })
 
   useHead({
@@ -29,6 +38,19 @@ export function useSiteSeo() {
       { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
     ],
     script: [{
+      // Gives Google the site name to show above the result instead of the domain.
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        '@id': `${siteUrl}#website`,
+        name: 'RallyZone',
+        alternateName: 'rallyzone.pl',
+        url: siteUrl,
+        inLanguage: 'pl-PL',
+        publisher: { '@id': `${siteUrl}#business` },
+      }),
+    }, {
       type: 'application/ld+json',
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
@@ -47,12 +69,14 @@ export function useSiteSeo() {
           addressLocality: 'Turek',
           addressCountry: 'PL',
         },
+        hasMap: mapUrl,
         geo: {
           '@type': 'GeoCoordinates',
           latitude: 52.022987,
           longitude: 18.509945,
         },
-        areaServed: 'PL',
+        areaServed: { '@type': 'Country', name: 'Polska' },
+        knowsLanguage: 'pl',
         description: defaultDescription,
         hasOfferCatalog: {
           '@type': 'OfferCatalog',

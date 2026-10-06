@@ -1,8 +1,18 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { execSync } from 'node:child_process'
 import { copyFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import tailwindcss from "@tailwindcss/vite";
 import { galleryFiles, galleryFullWidth } from './utils/gallery'
+
+// Date of the last commit (YYYY-MM-DD) for the sitemap; today if git is unavailable.
+function lastCommitDate() {
+  try {
+    return execSync('git log -1 --format=%cs', { encoding: 'utf8' }).trim()
+  } catch {
+    return new Date().toISOString().slice(0, 10)
+  }
+}
 
 function writeStatic404() {
   const src = join(process.cwd(), 'public/404.html')
@@ -20,6 +30,7 @@ export default defineNuxtConfig({
     prerender: {
       routes: [
         '/',
+        '/sitemap.xml',
         // Lightbox images are not in the HTML, so prerender them explicitly.
         ...galleryFiles.map(f => `/_ipx/w_${galleryFullWidth}&f_webp/pics/gallery/${f}`),
       ],
@@ -35,6 +46,9 @@ export default defineNuxtConfig({
     close() {
       writeStatic404()
     },
+  },
+  runtimeConfig: {
+    sitemapLastmod: lastCommitDate(),
   },
   vite: {
     plugins:[tailwindcss()]
