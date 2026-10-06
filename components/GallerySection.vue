@@ -90,73 +90,52 @@ watch(index, (i) => {
 onMounted(() => document.addEventListener('keydown', onKey))
 onBeforeUnmount(() => document.removeEventListener('keydown', onKey))
 
-const ROWS = 2
-const THUMB_H = 200  // tweak; make responsive if you want
-const cols = computed(() => Math.ceil(gallery.length / ROWS))
-
-const gridStyle = computed(() => ({
-  // sizing vars
-  '--thumb-h': `${THUMB_H}px`,
-  '--thumb-w': `calc(var(--thumb-h) * 4 / 3)`,
-  // templates (NOTE: numeric repeat counts, no CSS var in the count)
-  gridTemplateRows: `repeat(${ROWS}, var(--thumb-h))`,
-  gridTemplateColumns: `repeat(${cols.value}, var(--thumb-w))`,
-}))
+// Show a first batch, the rest on demand. All thumbnails stay in the HTML (hidden),
+// so the static build generates every size and hidden lazy images are not downloaded.
+const INITIAL = 8
+const showAll = ref(false)
+const visibleCount = computed(() => (showAll.value ? gallery.length : INITIAL))
 </script>
 
 <template>
-  <section id="gallery" class="mx-auto max-w-7xl px-6 py-16" aria-labelledby="gallery-title">
-    <div class="mb-8 max-w-2xl">
-      <h2 id="gallery-title" class="text-3xl font-bold">Galeria RallyZone</h2>
-      <p class="mt-3 text-lg text-slate-700">Zobacz rajdową atmosferę, nasze samochody i przygotowania do startów.</p>
-    </div>
-    <!-- <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-      <button
-        v-for="(src, i) in gallery"
-        :key="src"
-        type="button"
-        class="group block relative rounded-xl overflow-hidden focus:outline-none"
-        @click="open(i)"
-        :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
-        :ref="el => (thumbRefs[i] = el as HTMLButtonElement)"
-      >
-        <div class="pt-[66%]" />
-        <img
-          :src="src"
-          :alt="`RallyZone – zdjęcie z galerii rajdowej ${i + 1}`"
-          class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          loading="lazy"
-          decoding="async"
+  <section id="gallery" class="bg-white py-20 md:py-28" aria-labelledby="gallery-title">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="mb-10 max-w-2xl">
+        <p class="stage-label">OS 4 · Galeria</p>
+        <h2 id="gallery-title" class="mt-3 text-4xl md:text-6xl">Galeria RallyZone</h2>
+        <p class="mt-4 text-lg text-ink/75">Zobacz rajdową atmosferę, nasze samochody i przygotowania do startów.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 lg:grid-cols-4">
+        <button
+          v-for="(item, i) in gallery"
+          :key="item.src"
+          :ref="el => (thumbRefs[i] = el as HTMLButtonElement)"
+          type="button"
+          class="group relative block aspect-[4/3] overflow-hidden bg-ink focus:outline-none"
+          :class="{ hidden: i >= visibleCount }"
+          :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
+          @click="open(i)"
         >
-      </button>
-    </div> -->
-<div
-  class="grid grid-flow-row overflow-x-auto overscroll-x-contain gap-3 md:gap-4 snap-x snap-mandatory pe-4
-         scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none]"
-  :style="gridStyle"
->
-      <button
-        v-for="(item, i) in gallery"
-        :key="item.src"
-        :ref="el => (thumbRefs[i] = el as HTMLButtonElement)"
-        type="button"
-        class="group relative rounded-xl overflow-hidden focus:outline-none w-full h-full snap-start"
-        :aria-label="`Otwórz zdjęcie ${i + 1} z ${gallery.length}`"
-        @click="open(i)"
-      >
-        <NuxtImg
-          :src="item.src"
-          :alt="item.alt"
-          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          width="267"
-          height="200"
-          densities="x1 x2"
-          fit="cover"
-          format="webp"
-          loading="lazy"
-          decoding="async"
-        />
-      </button>
+          <NuxtImg
+            :src="item.src"
+            :alt="item.alt"
+            class="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-80"
+            width="320"
+            height="240"
+            densities="x1 x2"
+            fit="cover"
+            format="webp"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="absolute bottom-0 left-0 h-1 w-full origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true" />
+        </button>
+      </div>
+      <div v-if="!showAll" class="mt-8 text-center">
+        <button type="button" class="btn btn-primary" @click="showAll = true">
+          <span>Pokaż wszystkie zdjęcia ({{ gallery.length }})</span>
+        </button>
+      </div>
     </div>
 
     <!-- Modal / Lightbox -->
