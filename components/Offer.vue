@@ -36,7 +36,7 @@
             >
               <span class="font-display text-7xl font-extrabold uppercase italic text-white/10 md:text-8xl">Corsa</span>
             </div>
-            <span class="absolute left-0 top-4 bg-brand px-4 py-1 font-display text-sm font-extrabold uppercase italic tracking-wider">{{ car.tag }}</span>
+            <span class="absolute left-0 top-4 bg-brand-dark px-4 py-1 font-display text-sm font-extrabold uppercase italic tracking-wider">{{ car.tag }}</span>
           </div>
           <div class="p-6 md:p-8">
             <h3 class="text-3xl md:text-4xl">{{ car.name }}</h3>

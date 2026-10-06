@@ -18,7 +18,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2455.11585
   <section id="contact" class="bg-ink py-20 text-white md:py-28" aria-labelledby="contact-title">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-2 md:px-6">
       <div class="flex flex-col justify-center">
-        <p class="stage-label">OS 6 · Meta</p>
+        <p class="stage-label !text-brand-light">OS 6 · Meta</p>
         <h2 id="contact-title" class="mt-3 text-4xl md:text-6xl">Kontakt i wynajem rajdówki</h2>
         <p class="mt-5 text-lg text-white/75">Zapytaj o dostępność Peugeota 208 Rally2 lub Opla Corsy i ustal szczegóły startu.</p>
 
