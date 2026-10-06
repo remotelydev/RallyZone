@@ -25,9 +25,6 @@ function writeStatic404() {
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
-  runtimeConfig: {
-    sitemapLastmod: lastCommitDate(),
-  },
   nitro: {
     preset: 'static',
     prerender: {
@@ -49,6 +46,9 @@ export default defineNuxtConfig({
     close() {
       writeStatic404()
     },
+  },
+  runtimeConfig: {
+    sitemapLastmod: lastCommitDate(),
   },
   vite: {
     plugins:[tailwindcss()]
