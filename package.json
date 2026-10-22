@@ -13,14 +13,14 @@
   "dependencies": {
     "@fontsource-variable/saira": "^5.3.0",
     "@fontsource/saira-condensed": "^5.3.0",
-    "@nuxt/eslint": "^1.2.0",
-    "@nuxt/image": "^2.1.0",
-    "@tailwindcss/vite": "^4.1.13",
-    "eslint": "^9.23.0",
-    "nuxt": "^3.16.1",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.8.2",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "@nuxt/eslint": "^1.17.0",
+    "@nuxt/image": "^2.2.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "eslint": "^9.39.5",
+    "nuxt": "^3.21.11",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vue": "^3.5.44",
+    "vue-router": "^4.6.4"
   }
 }
